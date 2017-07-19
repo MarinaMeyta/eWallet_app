@@ -2,10 +2,6 @@ import sys
 from PyQt5 import QtCore, QtWidgets
 from main_window import *
 
-# replace 'c:/test.ui' with real path to ui-file created in QtDesigner
-#uifile = 'c:/test.ui'
-#form, base = uic.loadUiType(uifile)
-
 
 class mainQtWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
