@@ -37,6 +37,10 @@ class mainWindow(QtWidgets.QMainWindow):
         # remitDialog = QtWidgets.QDialog()
         self.ui.setupUi(self)
 
+        self.remitDialog = remitDialog()
+        self.exportDialog = QtWidgets.QFileDialog()
+        self.enterPinDialog = enterPinDialog()
+
         self.mythread = myThread()
 
         self.ui.export_wallet.triggered.connect(self.exportWallet)
@@ -48,19 +52,15 @@ class mainWindow(QtWidgets.QMainWindow):
 
     def exportWallet(self):
         self.mythread.start()
-
-        self.exportDialog = QtWidgets.QFileDialog()
-        self.exportDialog.exec()      
+        self.exportDialog.exec()
 
     def on_export_finished(self):
         print("thread finished")
 
     def remit(self):
-        self.remitDialog = remitDialog()
         self.remitDialog.exec()
 
     def showEnterPinDialog(self):
-        self.enterPinDialog = enterPinDialog()
         self.enterPinDialog.exec()
 
 
