@@ -1,7 +1,9 @@
 import sys
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui, QtSql
 from main_window import *
 from remittance import *
+from enter_pin import *
+
 
 class myThread(QtCore.QThread):
     def __init__(self, parent=None):
@@ -11,6 +13,13 @@ class myThread(QtCore.QThread):
         for i in range(1, 4):
             self.sleep(3) # sleep for 3 seconds
             print("i = %s" % i)
+
+
+class enterPinDialog(QtWidgets.QDialog):
+    def __init__(self):
+        QtWidgets.QWidget.__init__(self)
+        self.ui = Ui_enterPinDialog()
+        self.ui.setupUi(self)
 
 
 class remitDialog(QtWidgets.QDialog):
@@ -28,33 +37,42 @@ class mainWindow(QtWidgets.QMainWindow):
         # remitDialog = QtWidgets.QDialog()
         self.ui.setupUi(self)
 
-
         self.mythread = myThread()
 
-
-        self.ui.export_wallet.triggered.connect(self.export_wallet)
-        self.mythread.started.connect(self.export_wallet)
+        self.ui.export_wallet.triggered.connect(self.exportWallet)
+        self.mythread.started.connect(self.exportWallet)
         self.mythread.finished.connect(self.on_export_finished)
 
         self.ui.exit.triggered.connect(QtWidgets.qApp.quit)
         self.ui.remit.triggered.connect(self.remit)
 
-    def export_wallet(self):
+    def exportWallet(self):
         self.mythread.start()
+
+        self.exportDialog = QtWidgets.QFileDialog()
+        self.exportDialog.exec()      
 
     def on_export_finished(self):
         print("thread finished")
 
     def remit(self):
         self.remitDialog = remitDialog()
-        self.remitDialog.open()
+        self.remitDialog.exec()
+
+    def showEnterPinDialog(self):
+        self.enterPinDialog = enterPinDialog()
+        self.enterPinDialog.exec()
 
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    myapp = mainWindow()
+    win = mainWindow()
+    win.show()
 
-    myapp.show()
+    # timer = QtCore.QTimer();
+    # timer.timeout.connect(win.showEnterPinDialog)
+    # timer.start(10)
+
     sys.exit(app.exec_())
 
 
