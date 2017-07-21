@@ -16,3 +16,6 @@ sudo apt install pyqt5-dev-tools
 
 # Install QtSql dependency
 sudo apt-get install python3-pyqt5.qtsql
+
+# PyCrypto library for AES-256 usage
+pip3 install pycrypto
