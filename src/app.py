@@ -21,6 +21,8 @@ class enterPinDialog(QtWidgets.QDialog):
         self.ui = Ui_enterPinDialog()
         self.ui.setupUi(self)
 
+        self.ui.enterPinInput.setEchoMode(QtWidgets.QLineEdit.Password)
+
 
 class remitDialog(QtWidgets.QDialog):
     def __init__(self):
@@ -49,6 +51,7 @@ class mainWindow(QtWidgets.QMainWindow):
 
         self.ui.exit.triggered.connect(QtWidgets.qApp.quit)
         self.ui.remit.triggered.connect(self.remit)
+        self.ui.about.triggered.connect(self.about)
 
     def exportWallet(self):
         self.mythread.start()
@@ -63,11 +66,16 @@ class mainWindow(QtWidgets.QMainWindow):
     def showEnterPinDialog(self):
         self.enterPinDialog.exec()
 
+    def about(self):
+        QtGui.QMessageBox.about(mainWindow, "О программе", "Программа представляет собой электронный кошелек...")
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
     win = mainWindow()
     win.show()
+
+    win.showEnterPinDialog()
 
     # timer = QtCore.QTimer();
     # timer.timeout.connect(win.showEnterPinDialog)
