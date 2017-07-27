@@ -30,8 +30,16 @@ class enterPinDialog(QtWidgets.QDialog):
         QtWidgets.QWidget.__init__(self)
         self.ui = Ui_enterPinDialog()
         self.ui.setupUi(self)
-
         self.ui.enterPinInput.setEchoMode(QtWidgets.QLineEdit.Password)
+
+    def accept(self):
+        print("accepted")
+        self.done(QtWidgets.QDialog.Accepted)
+
+    def reject(self):
+        print("rejected")
+        self.done(QtWidgets.QDialog.Rejected)
+
 
 
 class remitDialog(QtWidgets.QDialog):
