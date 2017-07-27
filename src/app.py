@@ -1,8 +1,18 @@
 import sys
+import uuid
 from PyQt5 import QtCore, QtWidgets, QtGui, QtSql
 from main_window import *
 from remittance import *
 from enter_pin import *
+
+
+class User():
+    def __init__(self, parent=None):
+        self.id = self.generateId()
+
+    def generateId(self):
+        return uuid.uuid4().hex
+
 
 
 class myThread(QtCore.QThread):
