@@ -47,6 +47,13 @@ class remitDialog(QtWidgets.QDialog):
         QtWidgets.QWidget.__init__(self)
         self.ui = Ui_remitDialog()
         self.ui.setupUi(self)
+        self.ui.recipientIdInput.setAlignment(QtCore.Qt.AlignLeft)
+        self.ui.recipientIdInput.setText("")
+        self.ui.recipientIdInput.setInputMask("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+
+        self.ui.remitSumInput.setText("")
+        self.ui.remitSumInput.setCursorPosition(0)
+        self.ui.remitSumInput.setInputMask("999999")
 
 
 class mainWindow(QtWidgets.QMainWindow):
