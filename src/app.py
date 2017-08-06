@@ -14,7 +14,6 @@ class User():
         return uuid.uuid4().hex
 
 
-
 class myThread(QtCore.QThread):
     def __init__(self, parent=None):
         QtCore.QThread.__init__(self, parent)
@@ -50,10 +49,21 @@ class remitDialog(QtWidgets.QDialog):
         self.ui.recipientIdInput.setAlignment(QtCore.Qt.AlignLeft)
         self.ui.recipientIdInput.setText("")
         self.ui.recipientIdInput.setInputMask("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+        self.ui.recipientIdInput.setCursorPosition(0)
 
+        # TODO: use validators intstead of masks
         self.ui.remitSumInput.setText("")
         self.ui.remitSumInput.setCursorPosition(0)
         self.ui.remitSumInput.setInputMask("999999")
+        self.ui.remitSumInput.setCursorPosition(0)
+
+        self.ui.remitBtn.clicked.connect(self.remit)
+
+    def remit(self):
+        recipient_id = self.ui.recipientIdInput.text()
+        remitted_sum = self.ui.remitSumInput.text()
+        print(recipient_id)
+        print(remitted_sum)
 
 
 class mainWindow(QtWidgets.QMainWindow):
@@ -75,7 +85,7 @@ class mainWindow(QtWidgets.QMainWindow):
         self.mythread.finished.connect(self.on_export_finished)
 
         self.ui.exit.triggered.connect(QtWidgets.qApp.quit)
-        self.ui.remit.triggered.connect(self.remit)
+        self.ui.remit.triggered.connect(self.get_remit_dialog)
         self.ui.about.triggered.connect(self.about)
 
     def exportWallet(self):
@@ -85,7 +95,7 @@ class mainWindow(QtWidgets.QMainWindow):
     def on_export_finished(self):
         print("thread finished")
 
-    def remit(self):
+    def get_remit_dialog(self):
         self.remitDialog.exec()
 
     def showEnterPinDialog(self):
