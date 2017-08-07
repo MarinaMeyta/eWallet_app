@@ -1,4 +1,4 @@
-# Infotechs Test Task
+# eWallet
 
 Desktop wallet app using PyQt5, Python3
 
