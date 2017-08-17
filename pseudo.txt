@@ -1,0 +1,11 @@
+def remitFunction (sum, recipient_id, date):
+    payment = outcomingPayment(sum, recipient_id, date)
+    payment.savePaymentToDatabase()
+    # threading should be done separately
+    sendInSeparateThread(payment)
+
+
+def recievePaymentFunction(sum, date):
+    payment = incomingPayment(sum, date)
+    payment.savePaymentToDatabase()
+
