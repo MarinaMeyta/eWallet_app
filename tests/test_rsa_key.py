@@ -1,4 +1,5 @@
 import pytest
+import shutil
 import test_settings
 from rsa_key import RSAkey
 
@@ -6,7 +7,8 @@ from rsa_key import RSAkey
 @pytest.fixture(scope="module")
 def key():
     key = RSAkey(test_settings.PIN, test_settings.PATH_TO_TEST_KEY)
-    return key
+    yield key
+    shutil.rmtree(test_settings.PATH_TO_TEST_KEY)
 
 
 def test_import_key(key):
