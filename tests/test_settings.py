@@ -1,0 +1,5 @@
+PATH_TO_TEST_TOKEN_1 = './token1/'
+PATH_TO_TEST_TOKEN_2 = './token2/'
+PATH_TO_TEST_KEY = './rsa_key/'
+PIN = '878980'
+WRONG_PIN = '4849'
