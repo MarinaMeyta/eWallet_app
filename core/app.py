@@ -1,5 +1,6 @@
 import sys
 import uuid
+import settings
 from PyQt5 import QtCore, QtWidgets, QtGui, QtSql
 from main_window import *
 from remittance import *
@@ -122,10 +123,9 @@ def main():
     # timer.timeout.connect(win.showEnterPinDialog)
     # timer.start(10)
 
-    PIN = mainWindow.enterPinDialog.ui.enterPinInput
-    print(PIN)
-    token = Token(PIN)
-    rsa_key = RSAkey(PIN)
+    PIN = win.enterPinDialog.ui.enterPinInput.text()
+    token = Token(PIN, settings.PATH_TO_TOKEN)
+    rsa_key = RSAkey(PIN, settings.PATH_TO_KEY)
     if token.check_PIN(PIN) and rsa_key.key:
         logging.info("PIN is correct")
         pass

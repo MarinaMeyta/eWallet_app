@@ -14,6 +14,7 @@ class Token():
                 self.salt = data['salt']
                 self.hash = data['hash']
         except IOError:
+            os.makedirs(path, exist_ok=True)
             self.id = self.generate_id()
             self.salt = self.generate_salt(PIN)
             self.hash = self.generate_hash(PIN, self.salt)

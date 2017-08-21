@@ -6,5 +6,5 @@ __pycache__
 *.save*
 .cache/
 example.log
-keys/
+crypt/
 ewallet_env3.5/
