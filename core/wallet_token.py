@@ -1,15 +1,14 @@
 import uuid
 import crypt
 import json
-import settings
 import os
 from hmac import compare_digest as compare_hash
 
 
 class Token():
-    def __init__(self, PIN):
+    def __init__(self, PIN, path):
         try:
-            with open(os.path.join(settings.PATH_TO_TOKEN, 'TOKEN')) as token_file:
+            with open(os.path.join(path, 'TOKEN')) as token_file:
                 data = json.load(token_file)
                 self.id = data["id"]
                 self.salt = data['salt']
@@ -18,7 +17,7 @@ class Token():
             self.id = self.generate_id()
             self.salt = self.generate_salt(PIN)
             self.hash = self.generate_hash(PIN, self.salt)
-            self.save()
+            self.save(path)
 
 
     def generate_id(self):
@@ -33,8 +32,8 @@ class Token():
         return crypt.crypt(PIN, salt)
 
 
-    def save(self):
-        with open(os.path.join(settings.PATH_TO_TOKEN, 'TOKEN'), 'w') as hash_file:
+    def save(self, path):
+        with open(os.path.join(path, 'TOKEN'), 'w') as hash_file:
             data = {'id': self.id, 'salt': self.salt, 'hash': self.hash}
             json.dump(data, hash_file, sort_keys=True, indent=4)
 

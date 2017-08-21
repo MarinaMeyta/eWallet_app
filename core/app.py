@@ -5,8 +5,14 @@ from main_window import *
 from remittance import *
 from enter_pin import *
 
+from wallet_token import Token
+from rsa_key import RSAkey
 
-class User():
+import logging
+logging.basicConfig(filename='example.log', level=logging.DEBUG)
+
+
+class userWallet():
     def __init__(self, parent=None):
         self.id = self.generateId()
 
@@ -115,6 +121,18 @@ def main():
     # timer = QtCore.QTimer();
     # timer.timeout.connect(win.showEnterPinDialog)
     # timer.start(10)
+
+    PIN = mainWindow.enterPinDialog.ui.enterPinInput
+    print(PIN)
+    token = Token(PIN)
+    rsa_key = RSAkey(PIN)
+    if token.check_PIN(PIN) and rsa_key.key:
+        logging.info("PIN is correct")
+        pass
+    else:
+        # try entering pin again
+        pass
+
 
     sys.exit(app.exec_())
 
