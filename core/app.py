@@ -6,28 +6,10 @@ from remittance import *
 from enter_pin import *
 
 from wallet_token import Token
-from rsa_key import RSAkey
 
 import logging
 logging.basicConfig(filename='example.log', level=logging.DEBUG)
 
-
-class userWallet():
-    def __init__(self, parent=None):
-        self.id = self.generateId()
-
-    def generateId(self):
-        return uuid.uuid4().hex
-
-
-class myThread(QtCore.QThread):
-    def __init__(self, parent=None):
-        QtCore.QThread.__init__(self, parent)
-
-    def run(self):
-        for i in range(1, 4):
-            self.sleep(3) # sleep for 3 seconds
-            print("i = %s" % i)
 
 
 class enterPinDialog(QtWidgets.QDialog):
@@ -84,11 +66,9 @@ class mainWindow(QtWidgets.QMainWindow):
         self.exportDialog = QtWidgets.QFileDialog()
         self.enterPinDialog = enterPinDialog()
 
-        self.mythread = myThread()
-
         self.ui.export_wallet.triggered.connect(self.exportWallet)
-        self.mythread.started.connect(self.exportWallet)
-        self.mythread.finished.connect(self.on_export_finished)
+        # self.mythread.started.connect(self.exportWallet)
+        # self.mythread.finished.connect(self.on_export_finished)
 
         self.ui.exit.triggered.connect(QtWidgets.qApp.quit)
         self.ui.remit.triggered.connect(self.get_remit_dialog)
@@ -120,12 +100,12 @@ def main():
 
     # timer = QtCore.QTimer();
     # timer.timeout.connect(win.showEnterPinDialog)
-    # timer.start(10)
+    # timer.start(60)
+
 
     PIN = win.enterPinDialog.ui.enterPinInput.text()
     token = Token(PIN, settings.PATH_TO_TOKEN)
-    rsa_key = RSAkey(PIN, settings.PATH_TO_KEY)
-    if token.check_PIN(PIN) and rsa_key.key:
+    if token.check_PIN(PIN):
         logging.info("PIN is correct")
         pass
     else:
