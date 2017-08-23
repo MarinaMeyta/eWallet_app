@@ -1,5 +1,4 @@
 import sys
-import uuid
 import settings
 from PyQt5 import QtCore, QtWidgets, QtGui, QtSql
 from main_window import *
